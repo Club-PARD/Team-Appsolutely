@@ -42,7 +42,6 @@ class AuthService extends ChangeNotifier {
         }
       });
 
-      onSuccess();
       notifyListeners();
     } on FirebaseAuthException catch (e) {
       // firebase auth 에러 발생
@@ -62,7 +61,9 @@ class AuthService extends ChangeNotifier {
       await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: phone,
         verificationCompleted: (PhoneAuthCredential credential) {},
-        verificationFailed: (FirebaseAuthException e) {},
+        verificationFailed: (FirebaseAuthException e) {
+          onError(e.message!);
+        },
         codeSent: (String verificationId, int? resendToken) {
           verify = verificationId;
         },
@@ -80,7 +81,7 @@ class AuthService extends ChangeNotifier {
     }
   }
 
-  void checkPinNumber({
+  void checkPINCode({
     required String code,
     required Function onSuccess,
     required Function(String err) onError,

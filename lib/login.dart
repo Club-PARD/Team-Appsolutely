@@ -150,7 +150,7 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 30),
                   ElevatedButton(
                     onPressed: () {
-                      authService.checkPinNumber(
+                      authService.checkPINCode(
                         code: code,
                         onSuccess: () {
                           // 로그인 성공

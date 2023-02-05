@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "750142358803",
+    "project_id": "team-appsolutely",
+    "storage_bucket": "team-appsolutely.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:750142358803:android:1b3a0908a225c0bd6f46e6",
+        "android_client_info": {
+          "package_name": "com.example.appsolutely"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "750142358803-nl9704q3bkmi3al56fuca6ovrc550alt.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3bTbUYwsFLcE8SuwqzgZxThfyVgpp9FA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "750142358803-a232dkhjfrdkeqk1r4jnga93g502f2vd.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

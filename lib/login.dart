@@ -12,6 +12,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  var country = "";
   var phone = "";
   var code = "";
 
@@ -84,7 +85,12 @@ class _LoginPageState extends State<LoginPage> {
                   const SizedBox(height: 30),
                   Row(
                     children: [
-                      const Text('+82'),
+                      SizedBox(
+                        width: 40,
+                        child: TextField(
+                          onChanged: (value) => country = value,
+                        ),
+                      ),
                       const SizedBox(width: 10),
                       Expanded(
                         child: TextField(
@@ -101,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                   ElevatedButton(
                     onPressed: () {
                       authService.signInWithPhoneNumber(
-                        phone: '+82$phone',
+                        phone: country + phone,
                         onSuccess: () {
                           // 로그인 성공
                           ScaffoldMessenger.of(context)

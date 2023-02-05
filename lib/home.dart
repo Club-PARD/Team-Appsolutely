@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
       builder: (context, dataService, _) {
         return Scaffold(
           appBar: AppBar(
-            title: Text('${user.displayName}님 환영합니다!'),
+            title: Text('${user.phoneNumber}님 환영합니다!'),
             actions: [
               IconButton(
                 onPressed: () {

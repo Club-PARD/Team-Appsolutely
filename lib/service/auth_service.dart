@@ -5,6 +5,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 class AuthService extends ChangeNotifier {
   final userCollection = FirebaseFirestore.instance.collection('user');
+  static String verify = "";
 
   User? currentUser() {
     return FirebaseAuth.instance.currentUser;
@@ -37,6 +38,66 @@ class AuthService extends ChangeNotifier {
             'uid': user.uid,
             'url': user.photoURL,
             'name': user.displayName,
+          });
+        }
+      });
+
+      onSuccess();
+      notifyListeners();
+    } on FirebaseAuthException catch (e) {
+      // firebase auth 에러 발생
+      onError(e.message!);
+    } catch (e) {
+      // Firebase auth 이외의 에러 발생
+      onError(e.toString());
+    }
+  }
+
+  void signInWithPhoneNumber({
+    required String phone,
+    required Function onSuccess,
+    required Function(String err) onError,
+  }) async {
+    try {
+      await FirebaseAuth.instance.verifyPhoneNumber(
+        phoneNumber: phone,
+        verificationCompleted: (PhoneAuthCredential credential) {},
+        verificationFailed: (FirebaseAuthException e) {},
+        codeSent: (String verificationId, int? resendToken) {
+          verify = verificationId;
+        },
+        codeAutoRetrievalTimeout: (String verificationId) {},
+      );
+
+      onSuccess();
+      notifyListeners();
+    } on FirebaseAuthException catch (e) {
+      // firebase auth 에러 발생
+      onError(e.message!);
+    } catch (e) {
+      // Firebase auth 이외의 에러 발생
+      onError(e.toString());
+    }
+  }
+
+  void checkPinNumber({
+    required String code,
+    required Function onSuccess,
+    required Function(String err) onError,
+  }) async {
+    try {
+      // Create a PhoneAuthCredential with the code
+      PhoneAuthCredential credential =
+          PhoneAuthProvider.credential(verificationId: verify, smsCode: code);
+
+      // Sign the user in (or link) with the credential
+      await FirebaseAuth.instance.signInWithCredential(credential);
+
+      FirebaseAuth.instance.userChanges().listen((User? user) async {
+        if (user != null) {
+          await userCollection.doc(user.uid).set({
+            'uid': user.uid,
+            'phone': user.phoneNumber,
           });
         }
       });

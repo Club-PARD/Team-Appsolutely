@@ -20,9 +20,10 @@ class _LoginPageState extends State<LoginPage> {
     return Consumer<AuthService>(
       builder: (context, authService, _) {
         return Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 150, horizontal: 50),
-            child: Center(
+          body: SingleChildScrollView(
+            child: Padding(
+              padding:
+                  const EdgeInsets.symmetric(vertical: 150, horizontal: 50),
               child: Column(
                 children: [
                   const Text(

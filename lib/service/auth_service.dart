@@ -42,6 +42,7 @@ class AuthService extends ChangeNotifier {
         }
       });
 
+      onSuccess();
       notifyListeners();
     } on FirebaseAuthException catch (e) {
       // firebase auth 에러 발생

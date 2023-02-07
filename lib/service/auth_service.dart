@@ -61,14 +61,18 @@ class AuthService extends ChangeNotifier {
     try {
       await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: phone,
-        verificationCompleted: (PhoneAuthCredential credential) {},
+        verificationCompleted: (PhoneAuthCredential credential) async {
+          await FirebaseAuth.instance.signInWithCredential(credential);
+        },
         verificationFailed: (FirebaseAuthException e) {
           onError(e.message!);
         },
         codeSent: (String verificationId, int? resendToken) {
           verify = verificationId;
         },
-        codeAutoRetrievalTimeout: (String verificationId) {},
+        codeAutoRetrievalTimeout: (String verificationId) {
+          verify = verificationId;
+        },
       );
 
       onSuccess();

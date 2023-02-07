@@ -67,6 +67,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '750142358803',
     projectId: 'team-appsolutely',
     storageBucket: 'team-appsolutely.appspot.com',
+    androidClientId: '750142358803-0nd49hhkfrgh6sgn0vrk7ukoa5f2s75r.apps.googleusercontent.com',
     iosClientId: '750142358803-fmdg3q6dece13p625h7v0uasgsimbj42.apps.googleusercontent.com',
     iosBundleId: 'com.example.appsolutely',
   );
@@ -77,6 +78,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '750142358803',
     projectId: 'team-appsolutely',
     storageBucket: 'team-appsolutely.appspot.com',
+    androidClientId: '750142358803-0nd49hhkfrgh6sgn0vrk7ukoa5f2s75r.apps.googleusercontent.com',
     iosClientId: '750142358803-fmdg3q6dece13p625h7v0uasgsimbj42.apps.googleusercontent.com',
     iosBundleId: 'com.example.appsolutely',
   );

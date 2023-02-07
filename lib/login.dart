@@ -107,7 +107,7 @@ class _LoginPageState extends State<LoginPage> {
                   ElevatedButton(
                     onPressed: () {
                       authService.signInWithPhoneNumber(
-                        phone: country + phone,
+                        phone: "$country $phone",
                         onSuccess: () {
                           // 로그인 성공
                           ScaffoldMessenger.of(context)

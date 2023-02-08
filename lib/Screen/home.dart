@@ -4,7 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'login.dart';
+import 'LoginPage.dart';
+import '../utils/app_text_styles.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -75,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 },
-                child: const Text(
+                child: Text(
                   '로그아웃',
                 ),
               ),

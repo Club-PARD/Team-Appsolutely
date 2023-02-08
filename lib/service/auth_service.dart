@@ -38,6 +38,8 @@ class AuthService extends ChangeNotifier {
             'uid': user.uid,
             'url': user.photoURL,
             'name': user.displayName,
+          }).whenComplete(() => {
+            print('저장 완료')
           });
         }
       });

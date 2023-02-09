@@ -14,6 +14,8 @@ class _Join1State extends State<Join1> {
   final namecontroller = TextEditingController();
   final registNumcontroller = TextEditingController();
   final PhoNumcontroller = TextEditingController();
+  final gendercontroller = TextEditingController();
+
 
   @override
   Widget build(BuildContext context) {
@@ -29,6 +31,14 @@ class _Join1State extends State<Join1> {
             MyTextField(contents: '이름을 입력해주세요.', controller: namecontroller),
             const SizedBox(height: 50),
             Text('주민등록번호', style: Title5Style()),
+             Row(children: [
+                 Flexible(child: MyTextField(contents: '생년월일', controller: registNumcontroller)),
+                 SizedBox(width: 20),
+                 Flexible(child: MyTextField(contents: '0', controller: gendercontroller)),
+                 SizedBox(width: 14),
+                //  MyWidget().Dot()
+                Image.asset('assets/img/Dot.png')
+              ],),
           ],
         ),
       ),

@@ -19,10 +19,10 @@ class MyTextField extends StatelessWidget {
       decoration: InputDecoration(
         hintText: contents,
         enabledBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Color(0XFF2145FF)),
+          borderSide: BorderSide(color: Color(0XFFC0C0C0)),
         ),
         focusedBorder: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Color(0XFF2145FF)),
+          borderSide: BorderSide(color: Colors.black),
         ),
         border: const UnderlineInputBorder(
           borderSide: BorderSide(color: Color(0XFF2145FF)),
@@ -71,5 +71,12 @@ class LoginButton extends StatelessWidget {
         ],
       ),
     );
+  }
+}
+
+class MyWidget {
+  
+  Widget Dot(){
+    return Image.asset('assets/img/dot.png');
   }
 }

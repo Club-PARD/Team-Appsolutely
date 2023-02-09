@@ -1,15 +1,13 @@
-import 'package:appsolutely/Screen/call_log.dart';
 import 'package:appsolutely/Screen/call_manner.dart';
 import 'package:appsolutely/Screen/community.dart';
 import 'package:appsolutely/Screen/preparation.dart';
 import 'package:appsolutely/service/auth_service.dart';
 import 'package:appsolutely/service/data_service.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'LoginPage.dart';
+import 'contacts.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -30,7 +28,7 @@ class _HomePageState extends State<HomePage> {
       builder: (context, dataService, _) {
         final List<Widget> pages = [
           const CallLogPage(),
-          PhoneBookPage(user: user, dataService: dataService),
+          const ContactsPage(),
           const CallPreparationPage(),
           const CallMannerPage(),
           const CommunityPage(),
@@ -38,6 +36,7 @@ class _HomePageState extends State<HomePage> {
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
+            centerTitle: true,
             elevation: 0,
             foregroundColor: Colors.black,
             backgroundColor: Colors.white,
@@ -107,52 +106,18 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class PhoneBookPage extends StatelessWidget {
-  const PhoneBookPage({
-    super.key,
-    required this.user,
-    required this.dataService,
-  });
-
-  final User user;
-  final DataService dataService;
+class CallLogPage extends StatefulWidget {
+  const CallLogPage({super.key});
 
   @override
+  State<CallLogPage> createState() => _CallLogPageState();
+}
+
+class _CallLogPageState extends State<CallLogPage> {
+  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: StreamBuilder<QuerySnapshot>(
-            stream: dataService.read(user.uid),
-            builder: (context, snapshot) {
-              final docs = snapshot.data?.docs ?? [];
-              if (docs.isEmpty) {
-                return const Center(child: Text('데이터를 추가해주세요.'));
-              }
-              return ListView.builder(
-                itemCount: docs.length,
-                itemBuilder: (context, index) {
-                  final doc = docs[index];
-                  String data = doc.get('data');
-                  return ListTile(
-                    title: Text(
-                      data,
-                      style: const TextStyle(fontSize: 24),
-                    ),
-                    trailing: IconButton(
-                      icon: const Icon(Icons.delete),
-                      onPressed: () {
-                        // 삭제 버튼 클릭시
-                        dataService.delete(doc.id);
-                      },
-                    ),
-                  );
-                },
-              );
-            },
-          ),
-        ),
-      ],
+    return const Center(
+      child: Text('통화기록 페이지입니다'),
     );
   }
 }

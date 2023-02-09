@@ -16,12 +16,11 @@ class _Join1State extends State<Join1> {
   final PhoNumcontroller = TextEditingController();
   final gendercontroller = TextEditingController();
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Padding(
-        padding: const EdgeInsets.fromLTRB(24, 48, 0, 0),
+        padding: const EdgeInsets.fromLTRB(24, 48, 24, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -31,14 +30,37 @@ class _Join1State extends State<Join1> {
             MyTextField(contents: '이름을 입력해주세요.', controller: namecontroller),
             const SizedBox(height: 50),
             Text('주민등록번호', style: Title5Style()),
-             Row(children: [
-                 Flexible(child: MyTextField(contents: '생년월일', controller: registNumcontroller)),
-                 SizedBox(width: 20),
-                 Flexible(child: MyTextField(contents: '0', controller: gendercontroller)),
-                 SizedBox(width: 14),
-                //  MyWidget().Dot()
-                Image.asset('assets/img/Dot.png')
-              ],),
+            Row(
+              children: [
+                SizedBox(
+                    width: 161,
+                    child: Flexible(
+                        child: MyTextField(
+                            contents: '생년월일',
+                            controller: registNumcontroller))),
+                SizedBox(width: 20),
+                SizedBox(
+                    width: 18,
+                    child: Flexible(
+                        child:
+                            MyWidget().TextFieldCenter('0', gendercontroller))),
+                SizedBox(width: 14),
+                MyWidget().Dot(),
+                SizedBox(width: 14),
+                MyWidget().Dot(),
+                SizedBox(width: 14),
+                MyWidget().Dot(),
+                SizedBox(width: 14),
+                MyWidget().Dot(),
+                SizedBox(width: 14),
+                MyWidget().Dot(),
+                SizedBox(width: 14),
+                MyWidget().Dot(),
+                SizedBox(width: 35),
+              ],
+            ),
+            const SizedBox(height: 50),
+            Text('휴대폰 번호', style: Title5Style()),
           ],
         ),
       ),

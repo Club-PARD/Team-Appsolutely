@@ -22,66 +22,79 @@ class _Join2State extends State<Join2> {
     return Consumer<AuthService>(
       builder: (context, authService, _) {
         return Scaffold(
-          body: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('본인인증이 필요해요', style: Title2Style(color: Colors.black)),
-                const SizedBox(height: 66),
-                Text('전화번호', style: Title5Style()),
-                MyTextField(
-                    contents: '전화번호를 입력해주세요.', controller: PhoNumcontroller),
-                const SizedBox(height: 50),
-                LoginButton(
-                  pressed: () {
-                    authService.signInWithPhoneNumber(
-                      phone: PhoNumcontroller.text,
-                      onSuccess: () {
-                        //  로그인 성공
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text("로그인 성공"),
-                        ));
-                      },
-                      onError: (err) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(err),
-                        ));
-                      },
-                    );
-                  },
-                ),
-                const SizedBox(height: 50),
-                Text('인증코드', style: Title5Style()),
-                MyTextField(
-                    contents: '인증코드를 입력해주세요.', controller: otpController),
-                const SizedBox(height: 50),
-                LoginButton(
-                  pressed: () {
-                    authService.checkPINCode(
-                      code: otpController.text,
-                      onSuccess: () {
-                        //  로그인 성공
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text("로그인 성공"),
-                        ));
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomePage()),
-                        );
-                      },
-                      onError: (err) {
-                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                          content: Text(err),
-                        ));
-                      },
-                    );
-                  },
-                ),
-              ],
+          backgroundColor: Colors.white,
+          appBar: AppBar(
+            backgroundColor: Colors.white,
+            elevation: 0,
+            leading: IconButton(
+              icon: Icon(Icons.arrow_back_ios,color: Color(0XFF8B95A1)),
+              onPressed: (){
+                Navigator.pop(context);
+              },
+            )
+          ),
+          body: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('본인인증이 필요해요', style: Title2Style(color: Colors.black)),
+                  const SizedBox(height: 66),
+                  Text('전화번호', style: Title5Style()),
+                  MyTextField(
+                      contents: '전화번호를 입력해주세요.', controller: PhoNumcontroller),
+                  const SizedBox(height: 50),
+                  LoginButton(
+                    pressed: () {
+                      authService.signInWithPhoneNumber(
+                        phone: PhoNumcontroller.text,
+                        onSuccess: () {
+                          //  로그인 성공
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text("로그인 성공"),
+                          ));
+                        },
+                        onError: (err) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(err),
+                          ));
+                        },
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 50),
+                  Text('인증코드', style: Title5Style()),
+                  MyTextField(
+                      contents: '인증코드를 입력해주세요.', controller: otpController),
+                  const SizedBox(height: 50),
+                  LoginButton(
+                    pressed: () {
+                      authService.checkPINCode(
+                        code: otpController.text,
+                        onSuccess: () {
+                          //  로그인 성공
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text("로그인 성공"),
+                          ));
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomePage()),
+                          );
+                        },
+                        onError: (err) {
+                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                            content: Text(err),
+                          ));
+                        },
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
         );

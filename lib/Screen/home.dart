@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'LoginPage.dart';
-import '../utils/app_text_styles.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -15,6 +14,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  var _currentIndex = 2;
+
   @override
   Widget build(BuildContext context) {
     final authService = context.read<AuthService>();
@@ -22,14 +23,34 @@ class _HomePageState extends State<HomePage> {
     return Consumer<DataService>(
       builder: (context, dataService, _) {
         return Scaffold(
+          backgroundColor: Colors.white,
           appBar: AppBar(
-            title: Text('${user.phoneNumber}님 환영합니다!'),
+            elevation: 0,
+            foregroundColor: Colors.black,
+            backgroundColor: Colors.white,
+            title: const Text('연락처'),
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios_rounded,
+                color: Colors.grey,
+              ),
+              onPressed: () {
+                authService.signOut();
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              },
+            ),
             actions: [
               IconButton(
                 onPressed: () {
                   dataService.create("dummy", user.uid);
                 },
-                icon: const Icon(Icons.add),
+                icon: const Icon(
+                  Icons.person_add_alt_1_rounded,
+                  color: Colors.grey,
+                ),
               ),
             ],
           ),
@@ -66,19 +87,36 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
               ),
-              ElevatedButton(
-                onPressed: () {
-                  authService.signOut();
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginPage(),
-                    ),
-                  );
-                },
-                child: const Text(
-                  '로그아웃',
-                ),
+            ],
+          ),
+          bottomNavigationBar: BottomNavigationBar(
+            type: BottomNavigationBarType.fixed,
+            currentIndex: _currentIndex,
+            selectedItemColor: const Color(0XFF2145FF),
+            iconSize: 30,
+            onTap: (value) => setState(() {
+              _currentIndex = value;
+            }),
+            items: const [
+              BottomNavigationBarItem(
+                icon: Icon(Icons.access_time_filled_rounded),
+                label: '통화기록',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.edit_rounded),
+                label: '통화준비',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.person_rounded),
+                label: '연락처',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.event_available_rounded),
+                label: '전화예절',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.star_rate_rounded),
+                label: '커뮤니티',
               ),
             ],
           ),

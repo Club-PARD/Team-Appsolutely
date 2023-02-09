@@ -27,6 +27,7 @@ class _LoginPageState extends State<LoginPage> {
     return Consumer<AuthService>(
       builder: (context, authService, _) {
         return Scaffold(
+          backgroundColor: Colors.white,
           body: Column(
             children: [
               Padding(

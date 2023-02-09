@@ -67,7 +67,7 @@ class _Join2State extends State<Join2> {
                             .showSnackBar(const SnackBar(
                           content: Text("로그인 성공"),
                         ));
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => const HomePage()),

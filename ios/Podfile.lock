@@ -76,6 +76,9 @@ PODS:
     - nanopb/encode (= 2.30909.0)
   - nanopb/decode (2.30909.0)
   - nanopb/encode (2.30909.0)
+  - path_provider_foundation (0.0.1):
+    - Flutter
+    - FlutterMacOS
   - PromisesObjC (2.1.1)
 
 DEPENDENCIES:
@@ -87,6 +90,7 @@ DEPENDENCIES:
   - Flutter (from `Flutter`)
   - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/ios`)
   - GoogleSignIn
+  - path_provider_foundation (from `.symlinks/plugins/path_provider_foundation/ios`)
 
 SPEC REPOS:
   trunk:
@@ -116,6 +120,8 @@ EXTERNAL SOURCES:
     :path: Flutter
   google_sign_in_ios:
     :path: ".symlinks/plugins/google_sign_in_ios/ios"
+  path_provider_foundation:
+    :path: ".symlinks/plugins/path_provider_foundation/ios"
 
 CHECKOUT OPTIONS:
   FirebaseFirestore:
@@ -139,6 +145,7 @@ SPEC CHECKSUMS:
   GTMAppAuth: 0ff230db599948a9ad7470ca667337803b3fc4dd
   GTMSessionFetcher: 3a63d75eecd6aa32c2fc79f578064e1214dfdec2
   nanopb: b552cce312b6c8484180ef47159bc0f65a1f0431
+  path_provider_foundation: 37748e03f12783f9de2cb2c4eadfaa25fe6d4852
   PromisesObjC: ab77feca74fa2823e7af4249b8326368e61014cb
 
 PODFILE CHECKSUM: 887c231e85e5a8a5493b21cac9ad7661f50f3c8a

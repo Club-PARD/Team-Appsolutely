@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                     ),
                   );
                 },
-                child: Text(
+                child: const Text(
                   '로그아웃',
                 ),
               ),

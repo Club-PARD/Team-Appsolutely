@@ -1,11 +1,10 @@
 import 'package:appsolutely/Screen/Join/Join.dart';
+import 'package:appsolutely/Screen/otp.dart';
 import 'package:appsolutely/service/auth_service.dart';
 import 'package:appsolutely/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-
-import 'home.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -31,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
           body: Column(
             children: [
               Padding(
-                padding: EdgeInsets.fromLTRB(0, 48, 0, 52),
+                padding: const EdgeInsets.fromLTRB(0, 48, 0, 52),
                 child: Column(
                   children: [
                     // CarouselSlider.builder(
@@ -55,23 +54,23 @@ class _LoginPageState extends State<LoginPage> {
                     //   },
                     // ),
                     CarouselSlider(
-            options: CarouselOptions(
-              height: 560,
-              viewportFraction: 1.0,
-              enlargeCenterPage: false,
-              autoPlay: true,
-            ),
-            items: images
-                .map((item) => Container(
-                      child: Center(
-                          child: Image.asset(
-                        item,
-                        fit: BoxFit.contain,
+                      options: CarouselOptions(
                         height: 560,
-                      )),
-                    ))
-                .toList(),
-          ),
+                        viewportFraction: 1.0,
+                        enlargeCenterPage: false,
+                        autoPlay: true,
+                      ),
+                      items: images
+                          .map((item) => Container(
+                                child: Center(
+                                    child: Image.asset(
+                                  item,
+                                  fit: BoxFit.contain,
+                                  height: 560,
+                                )),
+                              ))
+                          .toList(),
+                    ),
                     // ElevatedButton(
                     //   onPressed: () {
                     //     authService.signInWithGoogle(
@@ -100,72 +99,89 @@ class _LoginPageState extends State<LoginPage> {
                     //   },
                     //   child: Text('구글 로그인 잠시 임시용'),
                     // ),
-                    SizedBox(height: 12),
+                    const SizedBox(height: 12),
                     SizedBox(
                       height: 54,
                       width: 340,
                       child: ElevatedButton(
                           onPressed: () {
                             print('회원가입 시작');
-                             Navigator.push(
+                            Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Join1()), // 회원가입 페이지로 가기
+                                  builder: (context) =>
+                                      const Join1()), // 회원가입 페이지로 가기
                             );
                           },
+                          style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: const Color(0XFF2145FF),
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15)),
+                              padding:
+                                  const EdgeInsets.fromLTRB(75, 17, 75, 17)),
                           child: Row(
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(top: 3),
-                                child: Image.asset('assets/img/call.png',height: 18.33,width: 18.33,),
+                                child: Image.asset(
+                                  'assets/img/call.png',
+                                  height: 18.33,
+                                  width: 18.33,
+                                ),
                               ),
-                              SizedBox(width: 10,),
-                               Text('전화번호로 시작하기',style: Title4Style(color: Colors.white)),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text('전화번호로 시작하기',
+                                  style: Title4Style(color: Colors.white)),
                             ],
-                          ),
-                          style: ElevatedButton.styleFrom(
-                             foregroundColor: Colors.white,
-                             backgroundColor: Color(0XFF2145FF),
-                             shape: RoundedRectangleBorder(
-                               borderRadius: BorderRadius.circular(15)
-                             ),
-                             padding: EdgeInsets.fromLTRB(75, 17, 75, 17)
-                          )
-                        ),
+                          )),
                     ),
-                    SizedBox(height: 20,),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     SizedBox(
                       height: 54,
                       width: 340,
                       child: ElevatedButton(
                           onPressed: () {
-
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      const Join2()), // 회원가입 페이지로 가기
+                            );
                           },
+                          style: ElevatedButton.styleFrom(
+                            foregroundColor: const Color(0XFF2145FF),
+                            backgroundColor: Colors.white,
+                            shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15)),
+                            padding: const EdgeInsets.fromLTRB(66, 17, 66, 17),
+                            side: const BorderSide(
+                                width: 1.0, color: Color(0XFF2145FF)),
+                          ),
                           child: Row(
                             children: [
-                               Column(
-                                 children: [
-                                   SizedBox(height: 3),
-                                   Image.asset('assets/img/Lock.png',height: 17,width: 17,),
-                                 ],
-                               ),
-                               SizedBox(width: 10,),
-                               Text('전화번호로 로그인하기',style: Title4Style(color: Color(0XFF2145FF))),
+                              Column(
+                                children: [
+                                  const SizedBox(height: 3),
+                                  Image.asset(
+                                    'assets/img/Lock.png',
+                                    height: 17,
+                                    width: 17,
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                width: 10,
+                              ),
+                              Text('전화번호로 로그인하기',
+                                  style: Title4Style(
+                                      color: const Color(0XFF2145FF))),
                             ],
-                          ),
-                          style: ElevatedButton.styleFrom(
-                             foregroundColor: Color(0XFF2145FF),
-                             backgroundColor: Colors.white,
-                             shape: RoundedRectangleBorder(
-                               borderRadius: BorderRadius.circular(15)
-                             ),
-                             padding: EdgeInsets.fromLTRB(66, 17, 66, 17),
-                             side: const BorderSide(
-                               width: 1.0,
-                              color: Color(0XFF2145FF)
-                             ),
-                          )
-                        ),
+                          )),
                     )
                   ],
                 ),

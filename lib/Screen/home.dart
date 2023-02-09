@@ -121,3 +121,53 @@ class _CallLogPageState extends State<CallLogPage> {
     );
   }
 }
+
+// class PhoneBookPage extends StatelessWidget {
+//   const PhoneBookPage({
+//     super.key,
+//     required this.user,
+//     required this.dataService,
+//   });
+
+//   final User user;
+//   final DataService dataService;
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       children: [
+//         Expanded(
+//           child: StreamBuilder<QuerySnapshot>(
+//             stream: dataService.read(user.uid),
+//             builder: (context, snapshot) {
+//               final docs = snapshot.data?.docs ?? [];
+//               if (docs.isEmpty) {
+//                 return const Center(child: Text('데이터를 추가해주세요.'));
+//               }
+//               return ListView.builder(
+//                 itemCount: docs.length,
+//                 itemBuilder: (context, index) {
+//                   final doc = docs[index];
+//                   String data = doc.get('data');
+//                   return ListTile(
+//                     title: Text(
+//                       data,
+//                       style: const TextStyle(fontSize: 24),
+//                     ),
+//                     trailing: IconButton(
+//                       icon: const Icon(Icons.delete),
+//                       onPressed: () {
+//                         // 삭제 버튼 클릭시
+//                         dataService.delete(doc.id);
+//                       },
+//                     ),
+//                   );
+//                 },
+//               );
+//             },
+//           ),
+//         ),
+//       ],
+//     );
+//   }
+// }

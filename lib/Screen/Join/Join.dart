@@ -12,7 +12,7 @@ class Join1 extends StatefulWidget {
 
 class _Join1State extends State<Join1> {
   final namecontroller = TextEditingController();
-  final registNumcontroller = TextEditingController();
+  final birthcontroller = TextEditingController();
   final PhoNumcontroller = TextEditingController();
   final gendercontroller = TextEditingController();
 
@@ -24,7 +24,7 @@ class _Join1State extends State<Join1> {
           backgroundColor: Colors.white,
           elevation: 0,
           leading: IconButton(
-            icon: Icon(Icons.arrow_back_ios,color: Color(0XFF8B95A1)),
+            icon: Icon(Icons.arrow_back_ios, color: Color(0XFF8B95A1)),
             onPressed: () {
               Navigator.pop(context);
             },
@@ -47,14 +47,13 @@ class _Join1State extends State<Join1> {
                       width: 161,
                       child: Flexible(
                           child: MyTextField(
-                              contents: '생년월일',
-                              controller: registNumcontroller))),
+                              contents: '생년월일', controller: birthcontroller))),
                   SizedBox(width: 20),
                   SizedBox(
                       width: 18,
                       child: Flexible(
-                          child:
-                              MyWidget().TextFieldCenter('0', gendercontroller))),
+                          child: MyWidget()
+                              .TextFieldCenter('0', gendercontroller))),
                   SizedBox(width: 14),
                   MyWidget().Dot(),
                   SizedBox(width: 14),
@@ -72,6 +71,38 @@ class _Join1State extends State<Join1> {
               ),
               const SizedBox(height: 50),
               Text('휴대폰 번호', style: Title5Style()),
+              Row(
+                children: [
+                  Column(
+                    children: [
+                      SizedBox(height: 15),
+                      SizedBox(width: 102, child: DropdownButtonCode()),
+                    ],
+                  ),
+                  SizedBox(width: 20),
+                  SizedBox(
+                      width: 220,
+                      child: Flexible(
+                          child: MyTextField(
+                              contents: ' 휴대폰 번호를 입력해주세요.',
+                              controller: PhoNumcontroller))),
+                ],
+              ),
+              const SizedBox(height: 50),
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: () {},
+                  child: Text('인증 요청', style: Title4Style()),
+                  style: ElevatedButton.styleFrom(
+                     side: const BorderSide(width: 1.0, color: Color(0XFFC0C0C0)),
+                      foregroundColor: Color(0XFFC0C0C0),
+                      backgroundColor: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15)),
+                      padding: const EdgeInsets.fromLTRB(75, 17, 75, 17)),
+                ),
+              )
             ],
           ),
         ),

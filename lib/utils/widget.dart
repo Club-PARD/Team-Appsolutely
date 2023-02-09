@@ -17,6 +17,7 @@ class MyTextField extends StatelessWidget {
     return TextFormField(
       controller: controller,
       decoration: InputDecoration(
+        contentPadding: EdgeInsets.only(top: 10),
         hintText: contents,
         enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: Color(0XFFC0C0C0)),
@@ -78,7 +79,12 @@ class LoginButton extends StatelessWidget {
 class MyWidget {
   
   Widget Dot(){
-    return  Image.asset('assets/img/Dot.png',height: 4, width: 4);
+    return  Column(
+      children: [
+        SizedBox(height: 10,),
+        Image.asset('assets/img/Dot.png',height: 4, width: 4),
+      ],
+    );
   }
 
   Widget TextFieldCenter(contents,controller){
@@ -87,6 +93,7 @@ class MyWidget {
       controller: controller,
       decoration: InputDecoration(
         hintText: contents,
+        contentPadding: EdgeInsets.only(top: 10),
         enabledBorder: const UnderlineInputBorder(
           borderSide: BorderSide(color: Color(0XFFC0C0C0)),
         ),
@@ -101,4 +108,39 @@ class MyWidget {
     );
   }
 
+   
+}
+
+List<String> list = <String>['SKT', 'KT', 'LG U+', '알뜰폰'];
+class DropdownButtonCode extends StatefulWidget {
+  const DropdownButtonCode({super.key});
+
+  @override
+  State<DropdownButtonCode> createState() => _DropdownButtonCodeState();
+}
+
+class _DropdownButtonCodeState extends State<DropdownButtonCode> {
+  String dropdownValue = list.first;
+  final List<String> _valueList = ['통신사        ','SKT', 'KT', 'LG U+', '알뜰폰'];
+  String _selectedValue = '통신사';
+
+  @override
+  Widget build(BuildContext context) {
+    return DropdownButton(
+          value: _valueList.first,
+          // style: Body1Style(color: Colors.black),
+          items: _valueList.map((value) {
+            return DropdownMenuItem(
+              value: value,
+              child: Text(value),
+            );
+          }).toList(),
+          onChanged: (value) {
+            setState(() {
+              print(value);
+              _selectedValue = value.toString();
+            });
+          },
+        );
+  }
 }

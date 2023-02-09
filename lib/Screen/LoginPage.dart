@@ -34,26 +34,6 @@ class _LoginPageState extends State<LoginPage> {
                 padding: const EdgeInsets.fromLTRB(0, 48, 0, 52),
                 child: Column(
                   children: [
-                    // CarouselSlider.builder(
-                    //   itemCount: images.length,
-                    //   options: CarouselOptions(
-                    //     autoPlay: true,
-                    //     aspectRatio: 0.83,
-                    //     enlargeCenterPage: true,
-                    //   ),
-                    //   itemBuilder: (context, index, realIdx) {
-                    //     return Container(
-                    //       color: Colors.white,
-                    //       child: Center(
-                    //           child: Image.asset(
-                    //         images[index],
-                    //         fit: BoxFit.contain,
-                    //         height: 560,
-                    //         width: 1000,
-                    //       )),
-                    //     );
-                    //   },
-                    // ),
                     CarouselSlider(
                       options: CarouselOptions(
                         height: 560,

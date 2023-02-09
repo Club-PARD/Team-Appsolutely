@@ -19,8 +19,8 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var _currentIndex = 2;
-  final List<String> titles = ['통화기록', '통화준비', '연락처', '전화예절', '커뮤니티'];
+  var _currentIndex = 0;
+  final List<String> titles = ['통화기록', '연락처', '통화준비', '전화예절', '커뮤니티'];
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +30,8 @@ class _HomePageState extends State<HomePage> {
       builder: (context, dataService, _) {
         final List<Widget> pages = [
           const CallLogPage(),
+          PhoneBookPage(user: user, dataService: dataService),
           const CallPreparationPage(),
-          Home(user: user, dataService: dataService),
           const CallMannerPage(),
           const CommunityPage(),
         ];
@@ -56,7 +56,7 @@ class _HomePageState extends State<HomePage> {
               },
             ),
             actions: [
-              _currentIndex == 2
+              _currentIndex == 1
                   ? IconButton(
                       onPressed: () {
                         dataService.create("dummy", user.uid);
@@ -84,12 +84,12 @@ class _HomePageState extends State<HomePage> {
                 label: '통화기록',
               ),
               BottomNavigationBarItem(
-                icon: Icon(Icons.edit_rounded),
-                label: '통화준비',
-              ),
-              BottomNavigationBarItem(
                 icon: Icon(Icons.person_rounded),
                 label: '연락처',
+              ),
+              BottomNavigationBarItem(
+                icon: Icon(Icons.edit_rounded),
+                label: '통화준비',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.event_available_rounded),
@@ -107,8 +107,8 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class Home extends StatelessWidget {
-  const Home({
+class PhoneBookPage extends StatelessWidget {
+  const PhoneBookPage({
     super.key,
     required this.user,
     required this.dataService,

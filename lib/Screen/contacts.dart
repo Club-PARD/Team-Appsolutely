@@ -1,10 +1,10 @@
 import 'package:appsolutely/service/contact_service.dart';
 import 'package:appsolutely/utils/app_text_styles.dart';
-import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../service/auth_service.dart';
+import '../utils/widget.dart';
 
 class ContactsPage extends StatefulWidget {
   const ContactsPage({super.key});
@@ -76,76 +76,8 @@ class _ContactsPageState extends State<ContactsPage> {
             const Text('연락처'),
             Expanded(
               child: search == ''
-                  ? FutureBuilder<List<Contact>>(
-                      future: contactService.getPermission(),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return ListView.separated(
-                            itemCount: snapshot.data!.length,
-                            separatorBuilder: (context, index) =>
-                                const Divider(),
-                            itemBuilder: (context, index) {
-                              final person = snapshot.data![index];
-                              return ListTile(
-                                leading: person.avatar == null
-                                    ? Image.asset('assets/img/profile.png')
-                                    : Image.memory(person.avatar!),
-                                title: Text(
-                                  person.displayName!,
-                                  style: Body4Style(),
-                                ),
-                                subtitle: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(person.company!),
-                                    Text(person.jobTitle!),
-                                    const SizedBox(),
-                                    const SizedBox(),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        }
-                        return const Center(child: CircularProgressIndicator());
-                      },
-                    )
-                  : FutureBuilder<List<Contact>>(
-                      future: contactService.searchContacts(search),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasData) {
-                          return ListView.separated(
-                            itemCount: snapshot.data!.length,
-                            separatorBuilder: (context, index) =>
-                                const Divider(),
-                            itemBuilder: (context, index) {
-                              final person = snapshot.data![index];
-                              return ListTile(
-                                leading: person.avatar == null
-                                    ? Image.asset('assets/img/profile.png')
-                                    : Image.memory(person.avatar!),
-                                title: Text(
-                                  person.displayName!,
-                                  style: Body4Style(),
-                                ),
-                                subtitle: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(person.company!),
-                                    Text(person.jobTitle!),
-                                    const SizedBox(),
-                                    const SizedBox(),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
-                        }
-                        return const Center(child: CircularProgressIndicator());
-                      },
-                    ),
+                  ? MyContacts(future: contactService.getPermission())
+                  : MyContacts(future: contactService.searchContacts(search)),
             ),
           ],
         );

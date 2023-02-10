@@ -1,47 +1,155 @@
+import 'package:appsolutely/service/contact_service.dart';
+import 'package:appsolutely/utils/app_text_styles.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
+import 'package:provider/provider.dart';
 
-class ContactsPage extends StatelessWidget {
+import '../service/auth_service.dart';
+
+class ContactsPage extends StatefulWidget {
   const ContactsPage({super.key});
 
-  Future<List<Contact>> getPermission() async {
-    List<Contact> contacts = [];
+  @override
+  State<ContactsPage> createState() => _ContactsPageState();
+}
 
-    var status = await Permission.contacts.status;
-    if (status.isGranted) {
-      contacts = await ContactsService.getContacts();
-    } else if (status.isDenied) {
-      Permission.contacts.request();
-    }
+class _ContactsPageState extends State<ContactsPage> {
+  var search = '';
 
-    return contacts;
+  void change(String value) {
+    setState(() {
+      search = value;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: FutureBuilder<List<Contact>>(
-            future: getPermission(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListView.builder(
-                  itemCount: snapshot.data!.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      leading: CircleAvatar(child: Text('$index')),
-                      title: Text(snapshot.data![index].displayName!),
-                    );
-                  },
-                );
-              }
-              return const CircularProgressIndicator();
-            },
-          ),
-        ),
-      ],
+    final authService = context.read<AuthService>();
+    final user = authService.currentUser()!;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 24),
+      child: Consumer<ContactService>(builder: (context, contactService, _) {
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            TextField(
+              textAlignVertical: TextAlignVertical.center,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.search),
+                hintText: '이름, 프로젝트 등을 검색해보세요.',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20),
+                  borderSide: const BorderSide(color: Colors.grey),
+                ),
+                prefixIconColor: Colors.grey,
+                contentPadding: EdgeInsets.zero,
+              ),
+              onChanged: (value) {
+                change(value);
+              },
+            ),
+            const SizedBox(height: 30),
+            const Text('내 프로필'),
+            ListTile(
+              leading: user.photoURL == null
+                  ? Image.asset('assets/img/profile.png')
+                  : Image.network(user.photoURL!),
+              title: Text(
+                user.displayName == null ? '사용자' : user.displayName!,
+                style: Body4Style(),
+              ),
+              subtitle: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: const [
+                  Text('한동대학교'),
+                  Text('프로젝트 팀장'),
+                  SizedBox(),
+                  SizedBox(),
+                ],
+              ),
+            ),
+            const Divider(thickness: 1),
+            const SizedBox(height: 15),
+            const Text('연락처'),
+            Expanded(
+              child: search == ''
+                  ? FutureBuilder<List<Contact>>(
+                      future: contactService.getPermission(),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return ListView.separated(
+                            itemCount: snapshot.data!.length,
+                            separatorBuilder: (context, index) =>
+                                const Divider(),
+                            itemBuilder: (context, index) {
+                              final person = snapshot.data![index];
+                              return ListTile(
+                                leading: person.avatar == null
+                                    ? Image.asset('assets/img/profile.png')
+                                    : Image.memory(person.avatar!),
+                                title: Text(
+                                  person.displayName!,
+                                  style: Body4Style(),
+                                ),
+                                subtitle: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(person.company!),
+                                    Text(person.jobTitle!),
+                                    const SizedBox(),
+                                    const SizedBox(),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        }
+                        return const Center(child: CircularProgressIndicator());
+                      },
+                    )
+                  : FutureBuilder<List<Contact>>(
+                      future: contactService.searchContacts(search),
+                      builder: (context, snapshot) {
+                        if (snapshot.hasData) {
+                          return ListView.separated(
+                            itemCount: snapshot.data!.length,
+                            separatorBuilder: (context, index) =>
+                                const Divider(),
+                            itemBuilder: (context, index) {
+                              final person = snapshot.data![index];
+                              return ListTile(
+                                leading: person.avatar == null
+                                    ? Image.asset('assets/img/profile.png')
+                                    : Image.memory(person.avatar!),
+                                title: Text(
+                                  person.displayName!,
+                                  style: Body4Style(),
+                                ),
+                                subtitle: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(person.company!),
+                                    Text(person.jobTitle!),
+                                    const SizedBox(),
+                                    const SizedBox(),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+                        }
+                        return const Center(child: CircularProgressIndicator());
+                      },
+                    ),
+            ),
+          ],
+        );
+      }),
     );
   }
 }

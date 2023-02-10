@@ -16,12 +16,6 @@ class ContactsPage extends StatefulWidget {
 class _ContactsPageState extends State<ContactsPage> {
   var search = '';
 
-  void change(String value) {
-    setState(() {
-      search = value;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     final authService = context.read<AuthService>();
@@ -48,7 +42,9 @@ class _ContactsPageState extends State<ContactsPage> {
                 contentPadding: EdgeInsets.zero,
               ),
               onChanged: (value) {
-                change(value);
+                setState(() {
+                  search = value;
+                });
               },
             ),
             const SizedBox(height: 30),

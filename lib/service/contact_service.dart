@@ -31,4 +31,23 @@ class ContactService extends ChangeNotifier {
     list.add(newPerson);
     notifyListeners();
   }
+
+  // final dataCollection = FirebaseFirestore.instance.collection('data');
+
+  // Stream<QuerySnapshot> read(String uid) {
+  //   return dataCollection.where('uid', isEqualTo: uid).snapshots();
+  // }
+
+  // void create(String data, String uid) async {
+  //   await dataCollection.add({
+  //     'uid': uid,
+  //     'data': data,
+  //   });
+  //   notifyListeners();
+  // }
+
+  // void delete(String docId) async {
+  //   await dataCollection.doc(docId).delete();
+  //   notifyListeners();
+  // }
 }

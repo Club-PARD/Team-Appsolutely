@@ -404,7 +404,13 @@ class MyPrepares extends StatelessWidget {
                             ),
                           ],
                         ),
-                        onTap: () {},
+                        onTap: () {
+                          //   Navigator.push(
+                          //       context,
+                          //       MaterialPageRoute(
+                          //           builder: (context) =>
+                          //               DetailPreparePage(prepare)));
+                        },
                       ),
                     );
                   },
@@ -478,7 +484,13 @@ class MyPrepares extends StatelessWidget {
                           ),
                         ],
                       ),
-                      onTap: () {},
+                      onTap: () {
+                        // Navigator.push(
+                        //     context,
+                        //     MaterialPageRoute(
+                        //         builder: (context) =>
+                        //             const DetailPreparePage(document)));
+                      },
                     ),
                   );
                 },

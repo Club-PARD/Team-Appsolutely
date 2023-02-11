@@ -139,7 +139,30 @@ class _HomePageState extends State<HomePage> {
                     });
               }),
             )
-          : null,
+          : _currentIndex == 4
+              ? SizedBox(
+                  height: 60.0,
+                  width: 60.0,
+                  child: FittedBox(
+                    child: FloatingActionButton(
+                      onPressed: () {
+                        // Add your onPressed code here!
+                      },
+                      backgroundColor: Theme.of(context).primaryColor,
+                      child: Transform.scale(
+                          scale: 2.2,
+                          child: Transform.translate(
+                            offset: const Offset(0, 0),
+                            child: Image.asset(
+                              'assets/plus.png',
+                              height: 11,
+                              width: 11,
+                            ),
+                          )),
+                    ),
+                  ),
+                )
+              : null,
     );
   }
 }

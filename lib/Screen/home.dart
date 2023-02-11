@@ -3,9 +3,11 @@ import 'package:appsolutely/Screen/community.dart';
 import 'package:appsolutely/Screen/preparation.dart';
 import 'package:appsolutely/service/auth_service.dart';
 import 'package:appsolutely/service/contact_service.dart';
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
+import '../service/prepare_service.dart';
 import 'LoginPage.dart';
 import 'add.dart';
 import 'contacts.dart';
@@ -31,7 +33,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final authService = context.read<AuthService>();
-    final contactService = context.read<ContactService>();
+    final prepareService = context.read<PrepareService>();
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -106,6 +108,38 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+      floatingActionButton: _currentIndex == 2
+          ? SizedBox(
+              width: 85,
+              height: 85,
+              child: Consumer<ContactService>(
+                  builder: (context, contactService, _) {
+                return FutureBuilder<List<Contact>>(
+                    future: contactService.getPermission(),
+                    builder: (context, snapshot) {
+                      return FloatingActionButton(
+                        onPressed: () {
+                          prepareService.create(
+                              authService.currentUser()!.uid,
+                              snapshot.data![0],
+                              '2월 12일 오전 11:00',
+                              '으아아ㅏ아ㅏㅏㅏ\n해커톤 화이팅읻아아ㅏㅏ아\n다들 수고가 많아요어어\n\n이런 노트 저런 노트 다 적어보자자ㅏ아ㅏㅏㅏ');
+                        },
+                        backgroundColor: const Color(0xFF617BFF),
+                        child: Center(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Icon(Icons.edit),
+                              Text('준비하기'),
+                            ],
+                          ),
+                        ),
+                      );
+                    });
+              }),
+            )
+          : null,
     );
   }
 }

@@ -1,4 +1,5 @@
 import 'package:appsolutely/Screen/detail.dart';
+import 'package:appsolutely/service/contact_service.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 
@@ -150,15 +151,19 @@ class _DropdownButtonCodeState extends State<DropdownButtonCode> {
 class MyContacts extends StatelessWidget {
   const MyContacts({
     super.key,
-    required this.future,
+    required this.isSearch,
+    required this.service,
   });
 
-  final Future<List<Contact>> future;
+  final String isSearch;
+  final ContactService service;
 
   @override
   Widget build(BuildContext context) {
     return FutureBuilder<List<Contact>>(
-      future: future,
+      future: isSearch == ''
+          ? service.getPermission()
+          : service.searchContacts(isSearch),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           return ListView.separated(
@@ -194,6 +199,12 @@ class MyContacts extends StatelessWidget {
                     const SizedBox(),
                   ],
                 ),
+                trailing: IconButton(
+                  onPressed: () {
+                    service.deleteOne(person);
+                  },
+                  icon: const Icon(Icons.delete),
+                ),
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -205,6 +216,39 @@ class MyContacts extends StatelessWidget {
         }
         return const Center(child: CircularProgressIndicator());
       },
+    );
+  }
+}
+
+class AddTextFormField extends StatelessWidget {
+  const AddTextFormField({
+    super.key,
+    required this.controller,
+    required this.hint,
+    required this.validation,
+  });
+
+  final TextEditingController controller;
+  final String hint;
+  final String? Function(String? value) validation;
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: controller,
+      textAlignVertical: TextAlignVertical.center,
+      decoration: InputDecoration(
+        hintText: hint,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: const BorderSide(color: Colors.grey),
+        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+      ),
+      validator: validation,
     );
   }
 }

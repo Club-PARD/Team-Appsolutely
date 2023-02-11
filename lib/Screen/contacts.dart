@@ -58,7 +58,9 @@ class _ContactsPageState extends State<ContactsPage> {
                               ? Image.asset('assets/img/profile.png')
                               : Image.network(user.photoURL!),
                           title: Text(
-                            user.displayName == '' ? '사용자' : user.displayName!,
+                            user.displayName == null
+                                ? '사용자'
+                                : user.displayName!,
                             style: Body4Style(),
                           ),
                           subtitle: Row(
@@ -78,9 +80,7 @@ class _ContactsPageState extends State<ContactsPage> {
                     )
                   : const SizedBox(),
               Expanded(
-                child: search == ''
-                    ? MyContacts(future: contactService.getPermission())
-                    : MyContacts(future: contactService.searchContacts(search)),
+                child: MyContacts(isSearch: search, service: contactService),
               ),
             ],
           );

@@ -44,6 +44,12 @@ class ContactService extends ChangeNotifier {
     notifyListeners();
   }
 
+  Future deleteOne(Contact contact) async {
+    await ContactsService.deleteContact(contact);
+    list.remove(contact);
+    notifyListeners();
+  }
+
   // final dataCollection = FirebaseFirestore.instance.collection('data');
 
   // Stream<QuerySnapshot> read(String uid) {

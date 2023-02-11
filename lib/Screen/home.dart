@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import '../service/prepare_service.dart';
 import 'LoginPage.dart';
 import 'add.dart';
+import 'community_addPage.dart';
 import 'contacts.dart';
 
 class HomePage extends StatefulWidget {
@@ -146,7 +147,10 @@ class _HomePageState extends State<HomePage> {
                   child: FittedBox(
                     child: FloatingActionButton(
                       onPressed: () {
-                        // Add your onPressed code here!
+                       Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => CADDPage()),
+                        );
                       },
                       backgroundColor: Theme.of(context).primaryColor,
                       child: Transform.scale(
@@ -154,7 +158,7 @@ class _HomePageState extends State<HomePage> {
                           child: Transform.translate(
                             offset: const Offset(0, 0),
                             child: Image.asset(
-                              'assets/plus.png',
+                              'assets/img/plus.png',
                               height: 11,
                               width: 11,
                             ),

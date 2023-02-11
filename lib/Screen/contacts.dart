@@ -22,62 +22,70 @@ class _ContactsPageState extends State<ContactsPage> {
     final user = authService.currentUser()!;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: Consumer<ContactService>(builder: (context, contactService, _) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            TextField(
-              textAlignVertical: TextAlignVertical.center,
-              decoration: InputDecoration(
-                prefixIcon: const Icon(Icons.search),
-                hintText: '이름, 프로젝트 등을 검색해보세요.',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
+      child: Consumer<ContactService>(
+        builder: (context, contactService, _) {
+          return Column(
+            children: [
+              TextField(
+                textAlignVertical: TextAlignVertical.center,
+                decoration: InputDecoration(
+                  prefixIcon: const Icon(Icons.search),
+                  hintText: '이름, 프로젝트 등을 검색해보세요.',
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(20),
+                    borderSide: const BorderSide(color: Colors.grey),
+                  ),
+                  prefixIconColor: Colors.grey,
+                  contentPadding: EdgeInsets.zero,
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20),
-                  borderSide: const BorderSide(color: Colors.grey),
-                ),
-                prefixIconColor: Colors.grey,
-                contentPadding: EdgeInsets.zero,
+                onChanged: (value) {
+                  setState(() {
+                    search = value;
+                  });
+                },
               ),
-              onChanged: (value) {
-                setState(() {
-                  search = value;
-                });
-              },
-            ),
-            const SizedBox(height: 30),
-            const Text('내 프로필'),
-            ListTile(
-              leading: user.photoURL == null
-                  ? Image.asset('assets/img/profile.png')
-                  : Image.network(user.photoURL!),
-              title: Text(
-                user.displayName == null ? '사용자' : user.displayName!,
-                style: Body4Style(),
+              const SizedBox(height: 30),
+              search == ''
+                  ? Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('내 프로필'),
+                        ListTile(
+                          leading: user.photoURL == null
+                              ? Image.asset('assets/img/profile.png')
+                              : Image.network(user.photoURL!),
+                          title: Text(
+                            user.displayName == '' ? '사용자' : user.displayName!,
+                            style: Body4Style(),
+                          ),
+                          subtitle: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: const [
+                              Text('한동대학교'),
+                              Text('프로젝트 팀장'),
+                              SizedBox(),
+                              SizedBox(),
+                            ],
+                          ),
+                        ),
+                        const Divider(thickness: 1),
+                        const SizedBox(height: 15),
+                        const Text('연락처'),
+                      ],
+                    )
+                  : const SizedBox(),
+              Expanded(
+                child: search == ''
+                    ? MyContacts(future: contactService.getPermission())
+                    : MyContacts(future: contactService.searchContacts(search)),
               ),
-              subtitle: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text('한동대학교'),
-                  Text('프로젝트 팀장'),
-                  SizedBox(),
-                  SizedBox(),
-                ],
-              ),
-            ),
-            const Divider(thickness: 1),
-            const SizedBox(height: 15),
-            const Text('연락처'),
-            Expanded(
-              child: search == ''
-                  ? MyContacts(future: contactService.getPermission())
-                  : MyContacts(future: contactService.searchContacts(search)),
-            ),
-          ],
-        );
-      }),
+            ],
+          );
+        },
+      ),
     );
   }
 }

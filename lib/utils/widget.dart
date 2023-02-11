@@ -1,3 +1,4 @@
+import 'package:appsolutely/Screen/detail.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 
@@ -166,21 +167,37 @@ class MyContacts extends StatelessWidget {
             itemBuilder: (context, index) {
               final person = snapshot.data![index];
               return ListTile(
-                leading: person.avatar == null
-                    ? Image.asset('assets/img/profile.png')
-                    : Image.memory(person.avatar!),
+                leading: Hero(
+                  tag: person,
+                  child: Image.asset('assets/img/profile.png'),
+                ),
                 title: Text(
-                  person.displayName!,
+                  person.givenName!,
                   style: Body4Style(),
                 ),
                 subtitle: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(person.company!),
-                    Text(person.jobTitle!),
+                    Flexible(
+                      child: Text(
+                        person.company!,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    Flexible(
+                      child: Text(
+                        person.jobTitle!,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
                     const SizedBox(),
                     const SizedBox(),
                   ],
+                ),
+                onTap: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => DetailPage(contact: person)),
                 ),
               );
             },

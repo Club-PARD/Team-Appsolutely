@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import 'LoginPage.dart';
+import 'add.dart';
 import 'contacts.dart';
 
 class HomePage extends StatefulWidget {
@@ -58,7 +59,11 @@ class _HomePageState extends State<HomePage> {
                   padding: const EdgeInsets.only(right: 24),
                   child: IconButton(
                     onPressed: () {
-                      contactService.addOne('dummy');
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AddPage()),
+                      );
                     },
                     icon: const Icon(
                       Icons.person_add_alt_1_rounded,

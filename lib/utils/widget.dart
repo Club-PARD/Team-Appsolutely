@@ -137,13 +137,13 @@ class DropdownButtonCode extends StatefulWidget {
 
 class _DropdownButtonCodeState extends State<DropdownButtonCode> {
   String dropdownValue = list.first;
-  final List<String> _valueList = ['통신사        ', 'SKT', 'KT', 'LG U+', '알뜰폰'];
+  final List<String> _valueList = ['통신사', 'SKT', 'KT', 'LG U+', '알뜰폰'];
   String _selectedValue = '통신사';
 
   @override
   Widget build(BuildContext context) {
     return DropdownButton(
-      value: _valueList.first,
+      value: _selectedValue,
       // style: Body1Style(color: Colors.black),
       items: _valueList.map((value) {
         return DropdownMenuItem(
@@ -153,7 +153,6 @@ class _DropdownButtonCodeState extends State<DropdownButtonCode> {
       }).toList(),
       onChanged: (value) {
         setState(() {
-          print(value);
           _selectedValue = value.toString();
         });
       },

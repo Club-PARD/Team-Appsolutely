@@ -6,14 +6,18 @@ import 'package:flutter/material.dart';
 import 'app_text_styles.dart';
 
 class MyTextField extends StatelessWidget {
-  final String contents;
-  final TextEditingController controller;
-
   const MyTextField({
     super.key,
     required this.contents,
     required this.controller,
+    required this.onChanged,
+    required this.validation,
   });
+
+  final String contents;
+  final TextEditingController controller;
+  final ValueChanged<String> onChanged;
+  final String? Function(String? value) validation;
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +33,9 @@ class MyTextField extends StatelessWidget {
           borderSide: BorderSide(color: Colors.black),
         ),
         hintStyle: Body1Style(),
-        border: const UnderlineInputBorder(
-          borderSide: BorderSide(color: Color(0XFF2145FF)),
-        ),
       ),
+      onChanged: (value) => onChanged(value),
+      validator: validation,
     );
   }
 }
@@ -91,7 +94,7 @@ class MyWidget {
     );
   }
 
-  Widget TextFieldCenter(contents, controller) {
+  Widget TextFieldCenter(contents, controller, onChanged) {
     return TextFormField(
       textAlign: TextAlign.center,
       controller: controller,
@@ -109,6 +112,7 @@ class MyWidget {
           borderSide: BorderSide(color: Color(0XFF2145FF)),
         ),
       ),
+      onChanged: (value) => onChanged(value),
     );
   }
 }

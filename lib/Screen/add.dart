@@ -56,7 +56,7 @@ class AddPage extends StatelessWidget {
                   hint: '이름을 입력해주세요.',
                   validation: (value) {
                     if (value!.isEmpty) {
-                      return '이름을 입력해주세요.';
+                      return '이름을 입력하세요.';
                     }
                     return null;
                   },
@@ -72,11 +72,11 @@ class AddPage extends StatelessWidget {
                   hint: '번호를 입력해주세요.',
                   validation: (value) {
                     if (value!.isEmpty) {
-                      return '전화번호를 입력해주세요.';
+                      return '전화번호를 입력하세요.';
                     } else if (!RegExp(
                             r"^\s*(?:\+?(\d{1,3}))?[-. (]*(\d{3})[-. )]*(\d{4})[-. ]*(\d{4})(?: *x(\d+))?\s*$")
                         .hasMatch(value)) {
-                      return '전화번호를 정확히 입력해주세요.';
+                      return '전화번호를 정확히 입력하세요.';
                     }
                     return null;
                   },
@@ -89,10 +89,10 @@ class AddPage extends StatelessWidget {
                 const SizedBox(height: 10),
                 AddTextFormField(
                   controller: companyController,
-                  hint: '소속된 회사와 부서를 입력해주세요.',
+                  hint: '소속된 회사와 부서를 입력하세요.',
                   validation: (value) {
                     if (value!.isEmpty) {
-                      return '소속된 회사와 부서를 입력해주세요.';
+                      return '소속된 회사와 부서를 입력하세요.';
                     }
                     return null;
                   },
@@ -108,7 +108,7 @@ class AddPage extends StatelessWidget {
                   hint: '부서에서의 직책을 입력해주세요.',
                   validation: (value) {
                     if (value!.isEmpty) {
-                      return '부서에서의 직책을 입력해주세요.';
+                      return '부서에서의 직책을 입력하세요.';
                     }
                     return null;
                   },
@@ -124,11 +124,11 @@ class AddPage extends StatelessWidget {
                   hint: '이메일을 입력해주세요.',
                   validation: (value) {
                     if (value!.isEmpty) {
-                      return '이메일을 입력해주세요.';
+                      return '이메일을 입력하세요.';
                     } else if (!RegExp(
                             r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$")
                         .hasMatch(value)) {
-                      return '이메일을 정확히 입력해주세요.';
+                      return '이메일을 정확히 입력하세요.';
                     }
                     return null;
                   },

@@ -24,15 +24,15 @@ class _Join2State extends State<Join2> {
         return Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            backgroundColor: Colors.white,
-            elevation: 0,
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back_ios,color: Color(0XFF8B95A1)),
-              onPressed: (){
-                Navigator.pop(context);
-              },
-            )
-          ),
+              backgroundColor: Colors.white,
+              elevation: 0,
+              leading: IconButton(
+                icon:
+                    const Icon(Icons.arrow_back_ios, color: Color(0XFF8B95A1)),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              )),
           body: SingleChildScrollView(
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 48),
@@ -43,7 +43,13 @@ class _Join2State extends State<Join2> {
                   const SizedBox(height: 66),
                   Text('전화번호', style: Title5Style()),
                   MyTextField(
-                      contents: '전화번호를 입력해주세요.', controller: PhoNumcontroller),
+                    contents: '전화번호를 입력해주세요.',
+                    controller: PhoNumcontroller,
+                    onChanged: (value) {},
+                    validation: (value) {
+                      return null;
+                    },
+                  ),
                   const SizedBox(height: 50),
                   LoginButton(
                     pressed: () {
@@ -67,7 +73,13 @@ class _Join2State extends State<Join2> {
                   const SizedBox(height: 50),
                   Text('인증코드', style: Title5Style()),
                   MyTextField(
-                      contents: '인증코드를 입력해주세요.', controller: otpController),
+                    contents: '인증코드를 입력해주세요.',
+                    controller: otpController,
+                    onChanged: (value) {},
+                    validation: (value) {
+                      return null;
+                    },
+                  ),
                   const SizedBox(height: 50),
                   LoginButton(
                     pressed: () {

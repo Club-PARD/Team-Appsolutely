@@ -1,5 +1,5 @@
 import 'package:appsolutely/Screen/Join/Join.dart';
-import 'package:appsolutely/Screen/otp.dart';
+import 'package:appsolutely/Screen/Join/otp.dart';
 import 'package:appsolutely/service/auth_service.dart';
 import 'package:appsolutely/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';

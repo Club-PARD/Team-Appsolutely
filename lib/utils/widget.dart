@@ -48,10 +48,12 @@ class MyTextField extends StatelessWidget {
 
 class LoginButton extends StatelessWidget {
   final void Function() pressed;
+  final String string;
 
   const LoginButton({
     super.key,
     required this.pressed,
+    required this.string,
   });
 
   @override
@@ -66,6 +68,7 @@ class LoginButton extends StatelessWidget {
         side: const BorderSide(width: 1.0, color: Color(0XFF2145FF)),
       ),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Column(
             children: [
@@ -79,7 +82,7 @@ class LoginButton extends StatelessWidget {
           ),
           const SizedBox(width: 10),
           Text(
-            '전화번호로 로그인하기',
+            string,
             style: Title4Style(color: const Color(0XFF2145FF)),
           ),
         ],

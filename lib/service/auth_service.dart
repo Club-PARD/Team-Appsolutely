@@ -60,7 +60,7 @@ class AuthService extends ChangeNotifier {
   }) async {
     try {
       await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: phone,
+        phoneNumber: '+82$phone',
         verificationCompleted: (PhoneAuthCredential credential) async {
           await FirebaseAuth.instance.signInWithCredential(credential);
         },
@@ -99,11 +99,39 @@ class AuthService extends ChangeNotifier {
       // Sign the user in (or link) with the credential
       await FirebaseAuth.instance.signInWithCredential(credential);
 
+      onSuccess();
+      notifyListeners();
+    } on FirebaseAuthException catch (e) {
+      // firebase auth 에러 발생
+      onError(e.message!);
+    } catch (e) {
+      // Firebase auth 이외의 에러 발생
+      onError(e.toString());
+    }
+  }
+
+  void checkPINCodeSignUp({
+    required String code,
+    required String name,
+    required String birthDay,
+    required Function onSuccess,
+    required Function(String err) onError,
+  }) async {
+    try {
+      // Create a PhoneAuthCredential with the code
+      PhoneAuthCredential credential =
+          PhoneAuthProvider.credential(verificationId: verify, smsCode: code);
+
+      // Sign the user in (or link) with the credential
+      await FirebaseAuth.instance.signInWithCredential(credential);
+
       FirebaseAuth.instance.userChanges().listen((User? user) async {
         if (user != null) {
           await userCollection.doc(user.uid).set({
             'uid': user.uid,
             'phone': user.phoneNumber,
+            'name': name,
+            'birthday': birthDay,
           });
         }
       });

@@ -4,7 +4,7 @@ import 'package:appsolutely/utils/widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../utils/app_text_styles.dart';
+import '../../utils/app_text_styles.dart';
 
 class Join2 extends StatefulWidget {
   const Join2({super.key});
@@ -16,6 +16,7 @@ class Join2 extends StatefulWidget {
 class _Join2State extends State<Join2> {
   final PhoNumcontroller = TextEditingController();
   final otpController = TextEditingController();
+  var isNumberCheck = false;
 
   @override
   Widget build(BuildContext context) {
@@ -52,6 +53,7 @@ class _Join2State extends State<Join2> {
                   ),
                   const SizedBox(height: 50),
                   LoginButton(
+                    string: '인증코드 전송',
                     pressed: () {
                       authService.signInWithPhoneNumber(
                         phone: PhoNumcontroller.text,
@@ -68,43 +70,59 @@ class _Join2State extends State<Join2> {
                           ));
                         },
                       );
+                      setState(() {
+                        isNumberCheck = true;
+                      });
                     },
                   ),
                   const SizedBox(height: 50),
-                  Text('인증코드', style: Title5Style()),
-                  MyTextField(
-                    contents: '인증코드를 입력해주세요.',
-                    controller: otpController,
-                    onChanged: (value) {},
-                    validation: (value) {
-                      return null;
-                    },
-                  ),
-                  const SizedBox(height: 50),
-                  LoginButton(
-                    pressed: () {
-                      authService.checkPINCode(
-                        code: otpController.text,
-                        onSuccess: () {
-                          //  로그인 성공
-                          ScaffoldMessenger.of(context)
-                              .showSnackBar(const SnackBar(
-                            content: Text("로그인 성공"),
-                          ));
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const HomePage()),
-                          );
-                        },
-                        onError: (err) {
-                          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                            content: Text(err),
-                          ));
-                        },
-                      );
-                    },
-                  ),
+                  isNumberCheck == true
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('인증코드', style: Title5Style()),
+                            MyTextField(
+                              contents: '인증코드를 입력해주세요.',
+                              controller: otpController,
+                              onChanged: (value) {},
+                              validation: (value) {
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 50),
+                            LoginButton(
+                              string: '인증코드 확인',
+                              pressed: () {
+                                authService.checkPINCode(
+                                  code: otpController.text,
+                                  onSuccess: () {
+                                    //  로그인 성공
+                                    setState(() {
+                                      isNumberCheck = false;
+                                    });
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                      content: Text("로그인 성공"),
+                                    ));
+                                    Navigator.pushReplacement(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const HomePage()),
+                                    );
+                                  },
+                                  onError: (err) {
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(SnackBar(
+                                      content: Text(err),
+                                    ));
+                                  },
+                                );
+                              },
+                            ),
+                          ],
+                        )
+                      : const SizedBox(),
                 ],
               ),
             ),

@@ -1,11 +1,31 @@
+import 'package:appsolutely/service/contact_service.dart';
 import 'package:appsolutely/utils/app_text_styles.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 
-class DetailPage extends StatelessWidget {
-  const DetailPage({super.key, required this.contact});
+import 'edit.dart';
+
+class DetailPage extends StatefulWidget {
+  const DetailPage({
+    super.key,
+    required this.contact,
+    required this.service,
+  });
 
   final Contact contact;
+  final ContactService service;
+
+  @override
+  State<DetailPage> createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    widget.service.getContact(widget.contact);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,14 +35,29 @@ class DetailPage extends StatelessWidget {
         backgroundColor: Colors.white,
         foregroundColor: Colors.black,
         elevation: 0,
-        title: Text(contact.displayName!),
+        centerTitle: true,
+        title: Text(widget.contact.displayName!),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => EditPage(contact: widget.contact)),
+              );
+            },
+            icon: const Icon(
+              Icons.edit_square,
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: ListView(
           children: [
             Hero(
-              tag: contact,
+              tag: widget.contact,
               child: SizedBox(
                 width: 90,
                 height: 90,
@@ -49,7 +84,7 @@ class DetailPage extends StatelessWidget {
                         style: Title4Style(color: Colors.grey),
                       ),
                       Text(
-                        '${contact.phones!.first.value}',
+                        '${widget.contact.phones!.first.value}',
                         style: Title4Style(),
                       ),
                     ],
@@ -112,7 +147,7 @@ class DetailPage extends StatelessWidget {
                         style: Body1Style(color: Colors.grey),
                       ),
                       Text(
-                        '${contact.company}',
+                        '${widget.contact.company}',
                         style: Body1Style(),
                       ),
                     ],
@@ -126,7 +161,7 @@ class DetailPage extends StatelessWidget {
                         style: Body1Style(color: Colors.grey),
                       ),
                       Text(
-                        '${contact.jobTitle}',
+                        '${widget.contact.jobTitle}',
                         style: Body1Style(),
                       ),
                     ],
@@ -140,7 +175,7 @@ class DetailPage extends StatelessWidget {
                         style: Body1Style(color: Colors.grey),
                       ),
                       Text(
-                        '${contact.emails!.first.value}',
+                        '${widget.contact.emails!.first.value}',
                         style: Body1Style(),
                       ),
                     ],

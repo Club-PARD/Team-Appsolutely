@@ -2,6 +2,7 @@ import 'package:appsolutely/Screen/detail.dart';
 import 'package:appsolutely/service/contact_service.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 
 import 'app_text_styles.dart';
 
@@ -175,44 +176,57 @@ class MyContacts extends StatelessWidget {
             separatorBuilder: (context, index) => const Divider(),
             itemBuilder: (context, index) {
               final person = snapshot.data![index];
-              return ListTile(
-                leading: Hero(
-                  tag: person,
-                  child: Image.asset('assets/img/profile.png'),
-                ),
-                title: Text(
-                  person.givenName!,
-                  style: Body4Style(),
-                ),
-                subtitle: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              return Slidable(
+                endActionPane: ActionPane(
+                  extentRatio: 0.25,
+                  motion: const ScrollMotion(),
                   children: [
-                    Flexible(
-                      child: Text(
-                        person.company!,
-                        overflow: TextOverflow.ellipsis,
-                      ),
+                    SlidableAction(
+                      onPressed: (context) {
+                        service.deleteOne(person);
+                      },
+                      backgroundColor: Colors.red,
+                      foregroundColor: Colors.white,
+                      label: '삭제',
                     ),
-                    Flexible(
-                      child: Text(
-                        person.jobTitle!,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                    ),
-                    const SizedBox(),
-                    const SizedBox(),
                   ],
                 ),
-                trailing: IconButton(
-                  onPressed: () {
-                    service.deleteOne(person);
-                  },
-                  icon: const Icon(Icons.delete),
-                ),
-                onTap: () => Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => DetailPage(contact: person)),
+                child: ListTile(
+                  leading: Hero(
+                    tag: person,
+                    child: Image.asset('assets/img/profile.png'),
+                  ),
+                  title: Text(
+                    person.givenName!,
+                    style: Body4Style(),
+                  ),
+                  subtitle: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          person.company!,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      Flexible(
+                        child: Text(
+                          person.jobTitle!,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                      ),
+                      const SizedBox(),
+                      const SizedBox(),
+                    ],
+                  ),
+                  onTap: () => Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DetailPage(
+                              contact: person,
+                              service: service,
+                            )),
+                  ),
                 ),
               );
             },
@@ -253,6 +267,60 @@ class AddTextFormField extends StatelessWidget {
         contentPadding: const EdgeInsets.symmetric(horizontal: 20),
       ),
       validator: validation,
+    );
+  }
+}
+
+class EditTextFormField extends StatefulWidget {
+  const EditTextFormField({
+    super.key,
+    required this.controller,
+    required this.hint,
+    required this.validation,
+    required this.content,
+  });
+
+  final TextEditingController controller;
+  final String hint;
+  final String? Function(String? value) validation;
+  final String? content;
+
+  @override
+  State<EditTextFormField> createState() => _EditTextFormFieldState();
+}
+
+class _EditTextFormFieldState extends State<EditTextFormField> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    widget.controller.text = widget.content!;
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    widget.controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return TextFormField(
+      controller: widget.controller,
+      textAlignVertical: TextAlignVertical.center,
+      decoration: InputDecoration(
+        hintText: widget.hint,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(20),
+          borderSide: const BorderSide(color: Colors.grey),
+        ),
+        contentPadding: const EdgeInsets.symmetric(horizontal: 20),
+      ),
+      validator: widget.validation,
     );
   }
 }

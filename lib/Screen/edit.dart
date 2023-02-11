@@ -1,13 +1,25 @@
+import 'package:appsolutely/Screen/contacts.dart';
 import 'package:appsolutely/service/contact_service.dart';
 import 'package:appsolutely/utils/app_text_styles.dart';
+import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../utils/widget.dart';
 
-class AddPage extends StatelessWidget {
-  const AddPage({super.key});
+class EditPage extends StatefulWidget {
+  const EditPage({
+    super.key,
+    required this.contact,
+  });
 
+  final Contact contact;
+
+  @override
+  State<EditPage> createState() => _EditPageState();
+}
+
+class _EditPageState extends State<EditPage> {
   @override
   Widget build(BuildContext context) {
     final contactService = context.read<ContactService>();
@@ -25,7 +37,7 @@ class AddPage extends StatelessWidget {
         elevation: 0,
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,
-        title: const Text('연락처 추가'),
+        title: const Text('연락처 수정'),
       ),
       body: Column(
         children: [
@@ -54,7 +66,8 @@ class AddPage extends StatelessWidget {
                         style: Body1Style(),
                       ),
                       const SizedBox(height: 10),
-                      AddTextFormField(
+                      EditTextFormField(
+                        content: widget.contact.givenName!,
                         controller: nameController,
                         hint: '이름을 입력해주세요.',
                         validation: (value) {
@@ -72,7 +85,8 @@ class AddPage extends StatelessWidget {
                         style: Body1Style(),
                       ),
                       const SizedBox(height: 10),
-                      AddTextFormField(
+                      EditTextFormField(
+                        content: widget.contact.phones!.first.value,
                         controller: phoneController,
                         hint: '번호를 입력해주세요.',
                         validation: (value) {
@@ -92,7 +106,8 @@ class AddPage extends StatelessWidget {
                         style: Body1Style(),
                       ),
                       const SizedBox(height: 10),
-                      AddTextFormField(
+                      EditTextFormField(
+                        content: widget.contact.company,
                         controller: companyController,
                         hint: '소속된 회사와 부서를 입력하세요.',
                         validation: (value) {
@@ -108,7 +123,8 @@ class AddPage extends StatelessWidget {
                         style: Body1Style(),
                       ),
                       const SizedBox(height: 10),
-                      AddTextFormField(
+                      EditTextFormField(
+                        content: widget.contact.jobTitle,
                         controller: jobController,
                         hint: '부서에서의 직책을 입력해주세요.',
                         validation: (value) {
@@ -124,7 +140,8 @@ class AddPage extends StatelessWidget {
                         style: Body1Style(),
                       ),
                       const SizedBox(height: 10),
-                      AddTextFormField(
+                      EditTextFormField(
+                        content: widget.contact.emails!.first.value,
                         controller: emailController,
                         hint: '이메일을 입력해주세요.',
                         validation: (value) {
@@ -137,6 +154,76 @@ class AddPage extends StatelessWidget {
                           }
                           return null;
                         },
+                      ),
+                      const SizedBox(height: 30),
+                      Row(
+                        children: [
+                          Expanded(
+                            child: ElevatedButton(
+                              onPressed: () {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) {
+                                    return AlertDialog(
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(20),
+                                      ),
+                                      actionsAlignment:
+                                          MainAxisAlignment.spaceAround,
+                                      content: Text(
+                                        '연락처를 삭제하시겠습니까?',
+                                        style: Body1Style(),
+                                      ),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () {
+                                            Navigator.pop(context);
+                                          },
+                                          child: Text(
+                                            '취소',
+                                            style: Title5Style(
+                                                color: Colors.black),
+                                          ),
+                                        ),
+                                        TextButton(
+                                          onPressed: () {
+                                            contactService
+                                                .deleteOne(widget.contact);
+                                            Navigator.pushReplacement(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const ContactsPage(),
+                                                ));
+                                          },
+                                          child: Text(
+                                            '삭제',
+                                            style: Title5Style(
+                                                color: Colors.black),
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  },
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                side: const BorderSide(
+                                  width: 1.0,
+                                  color: Colors.red,
+                                ),
+                                foregroundColor: Colors.red,
+                                backgroundColor: Colors.white,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(20)),
+                                padding:
+                                    const EdgeInsets.symmetric(vertical: 10),
+                              ),
+                              child: Text('삭제하기', style: Title4Style()),
+                            ),
+                          ),
+                        ],
                       ),
                     ],
                   ),
@@ -178,13 +265,18 @@ class AddPage extends StatelessWidget {
                     ),
                     onPressed: () {
                       if (formKey.currentState!.validate()) {
-                        contactService.addOne(
-                          name: nameController.text,
-                          company: companyController.text,
-                          phone: phoneController.text,
-                          job: jobController.text,
-                          email: emailController.text,
-                        );
+                        formKey.currentState!.save();
+                        setState(() {
+                          widget.contact.givenName = nameController.text;
+                          widget.contact.company = companyController.text;
+                          widget.contact.phones!.first.value =
+                              phoneController.text;
+                          widget.contact.jobTitle = jobController.text;
+                          widget.contact.emails!.first.value =
+                              emailController.text;
+                        });
+                        contactService.updateOne(contact: widget.contact);
+                        Navigator.pop(context);
                         Navigator.pop(context);
                       }
                     },

@@ -17,9 +17,15 @@ class ContactService extends ChangeNotifier {
   }
 
   Future<List<Contact>> searchContacts(String search) async {
-    List<Contact> result =
-        list.where((element) => element.displayName!.contains(search)).toList();
+    return list
+        .where((element) => element.displayName!.contains(search))
+        .toList();
+  }
 
+  Future<Contact> getContact(Contact contact) async {
+    Contact result = list[list
+        .indexWhere((element) => element.identifier! == contact.identifier!)];
+    print(result);
     return result;
   }
 
@@ -32,6 +38,7 @@ class ContactService extends ChangeNotifier {
   }) async {
     ///새 연락처 추가하기
     Contact newPerson = Contact();
+    newPerson.identifier = list.length.toString();
     newPerson.givenName = name;
     newPerson.company = company;
     newPerson.phones = [];
@@ -47,6 +54,15 @@ class ContactService extends ChangeNotifier {
   Future deleteOne(Contact contact) async {
     await ContactsService.deleteContact(contact);
     list.remove(contact);
+    notifyListeners();
+  }
+
+  Future updateOne({
+    required Contact contact,
+  }) async {
+    await ContactsService.updateContact(contact);
+    list[list.indexWhere(
+        (element) => element.identifier! == contact.identifier)] = contact;
     notifyListeners();
   }
 

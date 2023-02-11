@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
+import '../Screen/detail_prepare.dart';
 import 'app_text_styles.dart';
 
 class MyTextField extends StatelessWidget {
@@ -405,11 +406,11 @@ class MyPrepares extends StatelessWidget {
                           ],
                         ),
                         onTap: () {
-                          //   Navigator.push(
-                          //       context,
-                          //       MaterialPageRoute(
-                          //           builder: (context) =>
-                          //               DetailPreparePage(prepare)));
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      DetailPreparePage(prepare, null)));
                         },
                       ),
                     );
@@ -485,11 +486,11 @@ class MyPrepares extends StatelessWidget {
                         ],
                       ),
                       onTap: () {
-                        // Navigator.push(
-                        //     context,
-                        //     MaterialPageRoute(
-                        //         builder: (context) =>
-                        //             const DetailPreparePage(document)));
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    DetailPreparePage(null, document)));
                       },
                     ),
                   );

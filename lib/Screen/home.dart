@@ -142,17 +142,18 @@ class _HomePageState extends State<HomePage> {
             )
           : _currentIndex == 4
               ? SizedBox(
-                  height: 60.0,
-                  width: 60.0,
+                  height: 85,
+                  width: 85,
                   child: FittedBox(
                     child: FloatingActionButton(
                       onPressed: () {
-                       Navigator.push(
+                        Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => CADDPage()),
+                          MaterialPageRoute(
+                              builder: (context) => const CADDPage()),
                         );
                       },
-                      backgroundColor: Theme.of(context).primaryColor,
+                      backgroundColor: const Color(0xFF617BFF),
                       child: Transform.scale(
                           scale: 2.2,
                           child: Transform.translate(

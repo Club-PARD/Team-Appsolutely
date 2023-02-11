@@ -1,4 +1,3 @@
-import 'package:appsolutely/Screen/contacts.dart';
 import 'package:appsolutely/service/contact_service.dart';
 import 'package:appsolutely/utils/app_text_styles.dart';
 import 'package:contacts_service/contacts_service.dart';
@@ -156,75 +155,6 @@ class _EditPageState extends State<EditPage> {
                         },
                       ),
                       const SizedBox(height: 30),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: ElevatedButton(
-                              onPressed: () {
-                                showDialog(
-                                  context: context,
-                                  builder: (context) {
-                                    return AlertDialog(
-                                      shape: RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      actionsAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      content: Text(
-                                        '연락처를 삭제하시겠습니까?',
-                                        style: Body1Style(),
-                                      ),
-                                      actions: [
-                                        TextButton(
-                                          onPressed: () {
-                                            Navigator.pop(context);
-                                          },
-                                          child: Text(
-                                            '취소',
-                                            style: Title5Style(
-                                                color: Colors.black),
-                                          ),
-                                        ),
-                                        TextButton(
-                                          onPressed: () {
-                                            contactService
-                                                .deleteOne(widget.contact);
-                                            Navigator.pushReplacement(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      const ContactsPage(),
-                                                ));
-                                          },
-                                          child: Text(
-                                            '삭제',
-                                            style: Title5Style(
-                                                color: Colors.black),
-                                          ),
-                                        ),
-                                      ],
-                                    );
-                                  },
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                elevation: 0,
-                                side: const BorderSide(
-                                  width: 1.0,
-                                  color: Colors.red,
-                                ),
-                                foregroundColor: Colors.red,
-                                backgroundColor: Colors.white,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20)),
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 10),
-                              ),
-                              child: Text('삭제하기', style: Title4Style()),
-                            ),
-                          ),
-                        ],
-                      ),
                     ],
                   ),
                 ),

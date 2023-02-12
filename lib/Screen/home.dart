@@ -3,6 +3,7 @@ import 'package:appsolutely/Screen/community.dart';
 import 'package:appsolutely/Screen/preparation.dart';
 import 'package:appsolutely/service/auth_service.dart';
 import 'package:appsolutely/service/contact_service.dart';
+import 'package:appsolutely/utils/app_text_styles.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,7 +22,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  var _currentIndex = 0;
+  var _currentIndex = 1;
   final List<String> titles = ['통화기록', '연락처', '통화준비', '전화예절', '커뮤니티'];
   final List<Widget> pages = [
     const CallLogPage(),
@@ -43,10 +44,10 @@ class _HomePageState extends State<HomePage> {
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,
         title: Text(titles[_currentIndex]),
-        leading: IconButton(
-          icon: const Icon(
-            Icons.arrow_back_ios_rounded,
-            color: Colors.grey,
+        leading: TextButton(
+          child: Text(
+            '로그아웃',
+            style: Caption2Style(color: Colors.black),
           ),
           onPressed: () {
             authService.signOut();
@@ -58,20 +59,16 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           _currentIndex == 1
-              ? Padding(
-                  padding: const EdgeInsets.only(right: 24),
-                  child: IconButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const AddPage()),
-                      );
-                    },
-                    icon: const Icon(
-                      Icons.person_add_alt_1_rounded,
-                      color: Colors.grey,
-                    ),
+              ? IconButton(
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const AddPage()),
+                    );
+                  },
+                  icon: const Icon(
+                    Icons.person_add_alt_1_rounded,
+                    color: Colors.grey,
                   ),
                 )
               : const SizedBox(),

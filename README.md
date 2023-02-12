@@ -15,9 +15,9 @@
 
 | Color             | Hex                                                                |
 | ----------------- | ------------------------------------------------------------------ |
-| primaryprimary | ![#2145ff](https://via.placeholder.com/10/2145ff?text=+) #2145ff |
+| primary | ![#2145ff](https://via.placeholder.com/10/2145ff?text=+) #2145ff |
 | Secondary | ![#09439A](https://via.placeholder.com/10/09439A?text=+) #09439A |
-| light blue 1 | ![#B7C3FF](https://via.placeholder.com/10/B7C3FF?text=+) #B7C3FF |
+| light blue | ![#B7C3FF](https://via.placeholder.com/10/B7C3FF?text=+) #B7C3FF |
 | light disable | ![#F4F7FC](https://via.placeholder.com/10/E2E2E2?text=+) #E2E2E2 |
   
   <h3> Logo Design</h3>

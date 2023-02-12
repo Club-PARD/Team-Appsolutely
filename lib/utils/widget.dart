@@ -1,4 +1,4 @@
-import 'package:appsolutely/Screen/detail.dart';
+import 'package:appsolutely/Screen/Contacts/detail.dart';
 import 'package:appsolutely/service/auth_service.dart';
 import 'package:appsolutely/service/contact_service.dart';
 import 'package:appsolutely/service/prepare_service.dart';
@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:provider/provider.dart';
 
-import '../Screen/detail_prepare.dart';
+import '../Screen/Prepare/detail_prepare.dart';
 import 'app_text_styles.dart';
 
 class MyTextField extends StatelessWidget {

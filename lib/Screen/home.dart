@@ -1,6 +1,5 @@
-import 'package:appsolutely/Screen/call_manner.dart';
-import 'package:appsolutely/Screen/community.dart';
-import 'package:appsolutely/Screen/preparation.dart';
+import 'package:appsolutely/Screen/CallManner/call_manner.dart';
+import 'package:appsolutely/Screen/Prepare/preparation.dart';
 import 'package:appsolutely/service/auth_service.dart';
 import 'package:appsolutely/service/contact_service.dart';
 import 'package:appsolutely/utils/app_text_styles.dart';
@@ -9,10 +8,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../service/prepare_service.dart';
-import 'LoginPage.dart';
-import 'add.dart';
-import 'community_addPage.dart';
-import 'contacts.dart';
+import 'Community/community.dart';
+import 'Join/LoginPage.dart';
+import 'Contacts/add.dart';
+import 'Community/community_addPage.dart';
+import 'Contacts/contacts.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

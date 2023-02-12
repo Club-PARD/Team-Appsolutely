@@ -60,7 +60,7 @@ class AuthService extends ChangeNotifier {
   }) async {
     try {
       await FirebaseAuth.instance.verifyPhoneNumber(
-        phoneNumber: phone,
+        phoneNumber: '+82$phone',
         verificationCompleted: (PhoneAuthCredential credential) async {
           await FirebaseAuth.instance.signInWithCredential(credential);
         },

@@ -2,7 +2,7 @@ import 'package:appsolutely/service/prepare_service.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../utils/widget.dart';
+import '../../utils/widget.dart';
 
 class CallPreparationPage extends StatefulWidget {
   const CallPreparationPage({super.key});

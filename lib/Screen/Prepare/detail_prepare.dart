@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-import '../utils/app_text_styles.dart';
+import '../../utils/app_text_styles.dart';
 
 class DetailPreparePage extends StatelessWidget {
   DetailPreparePage(this.prepare1, this.prepare2, {super.key});

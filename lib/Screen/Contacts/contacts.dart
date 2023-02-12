@@ -3,8 +3,8 @@ import 'package:appsolutely/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../service/auth_service.dart';
-import '../utils/widget.dart';
+import '../../service/auth_service.dart';
+import '../../utils/widget.dart';
 
 class ContactsPage extends StatefulWidget {
   const ContactsPage({super.key});

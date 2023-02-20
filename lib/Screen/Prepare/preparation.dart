@@ -50,7 +50,10 @@ class _CallPreparationPageState extends State<CallPreparationPage> {
               ),
               const SizedBox(height: 30),
               Expanded(
-                child: MyPrepares(isSearch: search, service: prepareService),
+                child: MyPrepares(
+                  isSearch: search,
+                  service: prepareService,
+                ),
               ),
             ],
           );

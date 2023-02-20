@@ -292,30 +292,3 @@ class _AddPreparePageState extends State<AddPreparePage> {
     );
   }
 }
-
-// Consumer<ContactService>(
-//                   builder = (context, contactService, _) {
-//                 return FutureBuilder<List<Contact>>(
-//                     future: contactService.getPermission(),
-//                     builder: (context, snapshot) {
-//                       return FloatingActionButton(
-//                         onPressed: () {
-//                           prepareService.create(
-//                               authService.currentUser()!.uid,
-//                               snapshot.data![0],
-//                               '2월 12일 오전 11:00',
-//                               '으아아ㅏ아ㅏㅏㅏ\n해커톤 화이팅읻아아ㅏㅏ아\n다들 수고가 많아요어어\n\n이런 노트 저런 노트 다 적어보자자ㅏ아ㅏㅏㅏ');
-//                         },
-//                         backgroundColor: const Color(0xFF617BFF),
-//                         child: Center(
-//                           child: Column(
-//                             mainAxisAlignment: MainAxisAlignment.center,
-//                             children: const [
-//                               Icon(Icons.edit),
-//                               Text('준비하기'),
-//                             ],
-//                           ),
-//                         ),
-//                       );
-//                     });
-//               }),

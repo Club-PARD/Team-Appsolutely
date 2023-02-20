@@ -1,5 +1,6 @@
 import 'package:appsolutely/service/auth_service.dart';
 import 'package:appsolutely/service/contact_service.dart';
+import 'package:appsolutely/service/log_service.dart';
 import 'package:appsolutely/service/prepare_service.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -19,6 +20,7 @@ void main() async {
         ChangeNotifierProvider(create: (context) => AuthService()),
         ChangeNotifierProvider(create: (context) => ContactService()),
         ChangeNotifierProvider(create: (context) => PrepareService()),
+        ChangeNotifierProvider(create: (context) => LogService()),
       ],
       child: const Appsolutely(),
     ),

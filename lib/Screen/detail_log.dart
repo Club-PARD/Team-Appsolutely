@@ -1,63 +1,34 @@
-import 'package:appsolutely/service/contact_service.dart';
-import 'package:appsolutely/utils/app_text_styles.dart';
-import 'package:contacts_service/contacts_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
-import 'edit.dart';
+import '../../utils/app_text_styles.dart';
 
-class DetailPage extends StatefulWidget {
-  const DetailPage({
-    super.key,
-    required this.contact,
-    required this.service,
-  });
+class DetailLogPage extends StatelessWidget {
+  DetailLogPage(this.prepare1, this.prepare2, {super.key});
 
-  final Contact contact;
-  final ContactService service;
-
-  @override
-  State<DetailPage> createState() => _DetailPageState();
-}
-
-class _DetailPageState extends State<DetailPage> {
-  @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    widget.service.getContact(widget.contact);
-  }
+  QueryDocumentSnapshot? prepare1;
+  DocumentSnapshot? prepare2;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
-        elevation: 0,
         centerTitle: true,
-        title: Text(widget.contact.displayName!),
-        actions: [
-          IconButton(
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => EditPage(contact: widget.contact)),
-              );
-            },
-            icon: const Icon(
-              Icons.edit_square,
-            ),
-          ),
-        ],
+        elevation: 0,
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.white,
+        title: Text(prepare2 == null
+            ? prepare1!.get('oneName') as String
+            : prepare2!.get('oneName') as String),
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24),
         child: ListView(
           children: [
             Hero(
-              tag: widget.contact,
+              tag: prepare2 == null ? prepare1! : prepare2!,
               child: SizedBox(
                 width: 90,
                 height: 90,
@@ -84,7 +55,9 @@ class _DetailPageState extends State<DetailPage> {
                         style: Title4Style(color: Colors.grey),
                       ),
                       Text(
-                        '${widget.contact.phones!.first.value}',
+                        prepare2 == null
+                            ? prepare1!.get('onePhone') as String
+                            : prepare2!.get('onePhone') as String,
                         style: Title4Style(),
                       ),
                     ],
@@ -147,7 +120,9 @@ class _DetailPageState extends State<DetailPage> {
                         style: Body1Style(color: Colors.grey),
                       ),
                       Text(
-                        '${widget.contact.company}',
+                        prepare2 == null
+                            ? prepare1!.get('oneCompany') as String
+                            : prepare2!.get('oneCompany') as String,
                         style: Body1Style(),
                       ),
                     ],
@@ -161,7 +136,9 @@ class _DetailPageState extends State<DetailPage> {
                         style: Body1Style(color: Colors.grey),
                       ),
                       Text(
-                        '${widget.contact.jobTitle}',
+                        prepare2 == null
+                            ? prepare1!.get('oneJob') as String
+                            : prepare2!.get('oneJob') as String,
                         style: Body1Style(),
                       ),
                     ],
@@ -175,12 +152,46 @@ class _DetailPageState extends State<DetailPage> {
                         style: Body1Style(color: Colors.grey),
                       ),
                       Text(
-                        '${widget.contact.emails!.first.value}',
+                        prepare2 == null
+                            ? prepare1!.get('oneEmail') as String
+                            : prepare2!.get('oneEmail') as String,
                         style: Body1Style(),
                       ),
                     ],
                   ),
                 ],
+              ),
+            ),
+            const SizedBox(height: 40),
+            const Text('날짜'),
+            const SizedBox(height: 10),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Text(
+                  prepare2 == null
+                      ? DateFormat('yyyy년 M월 dd일 HH:mm')
+                          .format(prepare1!.get('time').toDate())
+                      : DateFormat('yyyy년 M월 dd일 HH:mm')
+                          .format(prepare2!.get('time').toDate()),
+                  style: Title5Style(color: const Color(0xFF617BFF)),
+                ),
+              ],
+            ),
+            const SizedBox(height: 30),
+            const Text('메모'),
+            const SizedBox(height: 10),
+            Container(
+              height: 135,
+              padding: const EdgeInsets.all(20),
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.grey),
+                borderRadius: BorderRadius.circular(20),
+              ),
+              child: Text(
+                prepare2 == null
+                    ? prepare1!.get('memo') as String
+                    : prepare2!.get('memo') as String,
               ),
             ),
           ],

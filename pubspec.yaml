@@ -79,6 +79,12 @@ flutter:
     - assets/img/Dot.png
     - assets/img/profile.png
     - assets/img/plus.png
+    - assets/img/call.png
+    - assets/img/callback.png
+    - assets/img/callout.png
+    - assets/img/missed.png
+    - assets/img/Lock.png
+    - assets/img/logo.png
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

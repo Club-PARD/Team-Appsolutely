@@ -1,7 +1,5 @@
 import 'package:appsolutely/utils/app_text_styles.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 import '../../service/add_community.dart';
 
@@ -148,7 +146,7 @@ class _CADDPageState extends State<CADDPage> {
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15)),
                             padding: const EdgeInsets.fromLTRB(75, 17, 75, 17)),
-                        child: Text('작성 하기', style: Title4Style()),
+                        child: Text('작성하기', style: Title4Style()),
                       ),
                     )
                   ])),

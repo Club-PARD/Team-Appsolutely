@@ -52,7 +52,7 @@ class _Join2State extends State<Join2> {
                     },
                   ),
                   const SizedBox(height: 50),
-                  LoginButton(
+                  MyButton(
                     string: '인증코드 전송',
                     pressed: () {
                       authService.signInWithPhoneNumber(
@@ -90,7 +90,7 @@ class _Join2State extends State<Join2> {
                               },
                             ),
                             const SizedBox(height: 50),
-                            LoginButton(
+                            MyButton(
                               string: '인증코드 확인',
                               pressed: () {
                                 authService.checkPINCode(

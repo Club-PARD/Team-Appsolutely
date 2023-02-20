@@ -47,6 +47,8 @@ dependencies:
   contacts_service: ^0.6.3
   permission_handler: ^10.2.0
   flutter_slidable: ^2.0.0
+  time_picker_spinner_pop_up: ^1.0.3
+  intl: ^0.17.0
 
 dev_dependencies:
   flutter_test:

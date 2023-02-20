@@ -231,7 +231,7 @@ class _Join1State extends State<Join1> {
                               },
                             ),
                             const SizedBox(height: 30),
-                            LoginButton(
+                            MyButton(
                               string: '인증코드 확인',
                               pressed: () {
                                 authService.checkPINCodeSignUp(

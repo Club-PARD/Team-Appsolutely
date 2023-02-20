@@ -11,7 +11,7 @@ class PrepareService extends ChangeNotifier {
     return prepareCollection.where('uid', isEqualTo: uid).snapshots();
   }
 
-  void create(String uid, Contact person, String time, String memo) async {
+  void create(String uid, Contact person, Timestamp time, String memo) async {
     await prepareCollection.add({
       'uid': uid,
       'oneName': person.givenName,

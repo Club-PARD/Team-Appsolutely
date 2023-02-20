@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import '../../utils/app_text_styles.dart';
 
@@ -169,8 +170,10 @@ class DetailPreparePage extends StatelessWidget {
               children: [
                 Text(
                   prepare2 == null
-                      ? prepare1!.get('time') as String
-                      : prepare2!.get('time') as String,
+                      ? DateFormat('yyyy년 M월 dd일 HH:mm')
+                          .format(prepare1!.get('time').toDate())
+                      : DateFormat('yyyy년 M월 dd일 HH:mm')
+                          .format(prepare2!.get('time').toDate()),
                   style: Title5Style(color: const Color(0xFF617BFF)),
                 ),
               ],
